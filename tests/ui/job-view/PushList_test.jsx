@@ -255,4 +255,17 @@ describe('PushList', () => {
     expect(job.signature).toBe('306fd1e8d922922cd171fa31f0d914300ff52228');
     expect(job.job_type_name).toBe('source-test-mozlint-yaml');
   });
+
+  test('jobs should have test_path field to filter', async () => {
+    const { store } = configureStore();
+    const { getByText } = render(testPushList(store, new FilterModel()));
+    const jobEl = await waitForElement(() => getByText('dt5'));
+    const jobInstance = findJobInstance(jobEl.getAttribute('data-job-id'));
+    const { job } = jobInstance.props;
+
+    expect(job.signature).toBe('0bac4980342a6f185082426471f9151a0de9ae50');
+    expect(job.job_type_name).toBe(
+      'test-linux1804-64/debug-mochitest-devtools-chrome-e10s-5',
+    );
+  });
 });
