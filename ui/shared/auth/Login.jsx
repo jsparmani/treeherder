@@ -107,7 +107,12 @@ class Login extends React.Component {
       <React.Fragment>
         {user && user.isLoggedIn ? (
           <UncontrolledDropdown>
-            <DropdownToggle className="navbar-link" nav caret>
+            <DropdownToggle
+              color="transparent"
+              className="navbar-link nav-menu-btn"
+              nav
+              caret
+            >
               <span
                 className="nav-user-icon mr-1 rounded"
                 aria-label={`Logged in as: ${user.email}`}
@@ -116,16 +121,14 @@ class Login extends React.Component {
               </span>
               <span>{user.fullName}</span>
             </DropdownToggle>
-            <DropdownMenu>
+            <DropdownMenu right>
               <DropdownItem tag="a" onClick={this.logout}>
                 Logout
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         ) : (
-          <Button
-            onClick={this.login}
-          >
+          <Button onClick={this.login} className="btn-view-nav nav-menu-btn">
             Login / Register
           </Button>
         )}

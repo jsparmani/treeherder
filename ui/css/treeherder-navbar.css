@@ -30,7 +30,7 @@
   min-width: inherit;
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu > li > a, .dropdown-menu a{
   font-weight: normal;
   line-height: 1.42857143;
   color: #333;
