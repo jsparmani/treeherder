@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
+import {
+  Button,
+  DropdownMenu,
+  DropdownItem,
+  DropdownToggle,
+  UncontrolledDropdown,
+} from 'reactstrap';
 import isEqual from 'lodash/isEqual';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -99,45 +105,27 @@ class Login extends React.Component {
 
     return (
       <React.Fragment>
-        {user.isLoggedIn && (
-          <span className="dropdown">
-            <Button
-              id="logoutLabel"
-              title={`Logged in as: ${user.email}`}
-              data-toggle="dropdown"
-              className="btn btn-view-nav"
-            >
-              <div className="dropdown-toggle">
-                <span className="nav-user-icon mr-1 rounded">
-                  <FontAwesomeIcon icon={faUser} size="xs" title="User" />
-                </span>
-                <span>{user.fullName}</span>
-              </div>
-            </Button>
-            <ul
-              className="dropdown-menu nav-dropdown-menu-right"
-              role="menu"
-              aria-labelledby="logoutLabel"
-            >
-              <li>
-                <Button
-                  onClick={this.logout}
-                  className="dropdown-item"
-                  type="submit"
-                >
-                  Logout
-                </Button>
-              </li>
-            </ul>
-          </span>
-        )}
-        {!user.isLoggedIn && (
+        {user && user.isLoggedIn ? (
+          <UncontrolledDropdown>
+            <DropdownToggle className="navbar-link" nav caret>
+              <span
+                className="nav-user-icon mr-1 rounded"
+                aria-label={`Logged in as: ${user.email}`}
+              >
+                <FontAwesomeIcon icon={faUser} size="xs" />
+              </span>
+              <span>{user.fullName}</span>
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem tag="a" onClick={this.logout}>
+                Logout
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        ) : (
           <Button
-            className="btn btn-view-nav nav-menu-btn"
             onClick={this.login}
-            type="submit"
           >
-            {' '}
             Login / Register
           </Button>
         )}
